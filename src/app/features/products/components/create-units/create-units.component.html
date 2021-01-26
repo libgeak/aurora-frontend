@@ -1,0 +1,49 @@
+<div class="box">
+  <form novalidate [formGroup]="formCreateUnit" autocomplete="false" >
+    <div class="title is-4 has-text-centered has-background-primary has-text-white">
+      Registro de unidades
+    </div>
+    <div class="field">
+      <label for="code" class="label">Abreviatura</label>
+      <div class="control" >
+        <input type="text"
+            formControlName ="code"
+            placeholder="Ej. Kg"
+            class="input is-capitalized" required/>
+        <app-message-validator
+          [formGroup] = "formCreateUnit"
+          controlName = "code">
+        </app-message-validator>
+      </div>
+    </div>
+    <div class="field">
+      <label for = "name" class = "label">Nombre</label>
+      <div class = "control" >
+        <input type = "text"
+            formControlName = "name"
+            name = "name"
+            placeholder = "Ej. Kilogramo"
+            class = "input is-capitalized"
+            required/>
+      </div>
+      <app-message-validator
+        [formGroup] = "formCreateUnit"
+        controlName = "name">
+      </app-message-validator>
+    </div>
+
+    <div class="field buttons is-right">
+      <button
+        class="button is-link"
+        [routerLink] ="['/productos/crear-unidades']">
+        Nuevo
+      </button>
+      <button class="button is-primary"
+        [disabled] ="formCreateUnit.invalid"
+        (click) ="createUnit()"
+      >
+        Enviar
+      </button>
+    </div>
+  </form>
+</div>

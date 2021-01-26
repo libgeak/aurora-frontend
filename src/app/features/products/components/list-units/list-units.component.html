@@ -1,0 +1,31 @@
+<div class="box">
+  <div class="title is-4 has-text-centered has-background-primary has-text-white"  >Lista de unidades</div>
+  <!--div class="buttons is-right">
+    <button class="button is-primary" role="button" [routerLink] ="['/productos/crear-unidades']" >Crear</button>
+  </div-->
+  <table class="table is-bordered is-hoverable is-fullwidth">
+    <thead>
+      <tr>
+        <th class="has-background-primary-dark has-text-white has-text-centered">Abreviatura</th>
+        <th class="has-background-primary-dark has-text-white has-text-centered">Nombre</th>
+        <th class="has-background-primary-dark has-text-white has-text-centered">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor = "let unit of units | async" >
+        <td>{{ unit.code }} </td>
+        <td>{{ unit.name }} </td>
+        <td>
+          <div class="buttons">
+            <button class="button is-link"
+              [routerLink] = "['/productos/crear-unidades', unit.id]">
+              <span class="icon is-small">
+                <i class="far fa-edit"></i>
+              </span>
+            </button>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

@@ -1,0 +1,67 @@
+<form novalidate [formGroup]="formCreateProduct" class="box is-full" autocomplete="false" >
+
+  <div class="title is-4 has-text-centered has-background-primary has-text-white"  >Registro de productos</div>
+  <div class="field">
+    <label for="name" class="label">Nombre</label>
+    <div class="control" >
+      <input type="text"
+          formControlName ="name"
+          placeholder="Ej. Yuca"
+          class="input is-capitalized"
+          required/>
+      <app-message-validator
+        [formGroup] = "formCreateProduct"
+        controlName = "name">
+      </app-message-validator>
+    </div>
+  </div>
+
+  <div class="field">
+    <label for = "unitValue" class = "label">Valor unitario</label>
+    <div class = "control" >
+      <input type = "number"
+          formControlName = "unitValue"
+          name = "unitValue"
+          placeholder = "Ej. 5000"
+          class = "input"
+          required/>
+    </div>
+    <app-message-validator
+      [formGroup] = "formCreateProduct"
+      controlName = "unitValue">
+    </app-message-validator>
+  </div>
+
+  <div class="field">
+    <label for = "unit" class = "label">Unidad</label>
+    <div class = "control" >
+      <div class="select">
+        <select formControlName = "idUnit">
+          <option  *ngFor="let unit of unitsActive | async"
+                  [value]="unit.id">
+            {{ unit.code }} - {{unit.name}}
+          </option>
+        </select>
+      </div>
+
+    </div>
+    <app-message-validator
+      [formGroup] = "formCreateProduct"
+      controlName = "idUnit">
+    </app-message-validator>
+  </div>
+
+  <div class="field buttons is-right">
+    <button
+      class="button is-link"
+      [routerLink] ="['/productos/crear-productos']">
+      Nuevo
+    </button>
+    <button class="button is-primary"
+      [disabled] ="formCreateProduct.invalid"
+      (click) ="saveProduct()"
+    >
+      Enviar
+    </button>
+  </div>
+  </form>

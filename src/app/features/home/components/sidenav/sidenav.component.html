@@ -1,0 +1,25 @@
+<section>
+  <aside class="menu is-fullheight is-hidden-mobile">
+    <ul class="menu-list">
+      <li>
+        <a class="has-background-primary has-text-white">Crear</a>
+        <ul>
+          <li><a class="is-disable" >Ventas</a></li>
+          <li><a role="button" [routerLink]="['/productos/crear-productos']">Productos</a></li>
+          <li><a role="button" [routerLink]="['/clientes/crear-clientes']">Clientes</a></li>
+          <li><a role="button" [routerLink]="['/productos/crear-unidades']">Unidades</a></li>
+        </ul>
+      </li>
+
+      <li>
+        <a class="has-background-primary has-text-white">Listar</a>
+        <ul>
+          <li><a >Ventas</a></li>
+          <li><a role="button" [routerLink]="['/productos/lista-productos']">Productos</a></li>
+          <li><a role="button" [routerLink]="['/clientes/lista-clientes']">Clientes</a></li>
+          <li><a role="button" [routerLink]="['/productos/lista-unidades']">Unidades</a></li>
+        </ul>
+      </li>
+    </ul>
+  </aside>
+</section>

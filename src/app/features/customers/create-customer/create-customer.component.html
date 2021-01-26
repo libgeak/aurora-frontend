@@ -1,0 +1,147 @@
+<div class="columns is-centered">
+  <div class="column is-four-fifths">
+    <div class="box">
+      <form novalidate [formGroup]="formCreateCustomer" autocomplete="false" >
+        <div class="columns">
+          <div class="column">
+            <div class="title is-4 has-text-centered has-background-primary has-text-white">
+              Registro de clientes
+            </div>
+
+            <div class="field">
+              <label for = "identificationNumber" class = "label">Numero identificación</label>
+              <div class = "control" >
+                <input type = "text"
+                    formControlName = "identificationNumber"
+                    name = "identificationNumber"
+                    placeholder = "Ej. XXXXXXXXX"
+                    class = "input"
+                    />
+              </div>
+              <app-message-validator
+                [formGroup] = "formCreateCustomer"
+                controlName = "identificationNumber">
+              </app-message-validator>
+            </div>
+
+            <div class="field">
+              <label for="fullname" class="label">Nombre del cliente</label>
+              <div class="control" >
+                <input type="text"
+                    formControlName ="fullname"
+                    placeholder="Pepito Perez"
+                    class="input is-capitalized" required/>
+                <app-message-validator
+                  [formGroup] = "formCreateCustomer"
+                  controlName = "fullname">
+                </app-message-validator>
+              </div>
+            </div>
+
+            <div class="columns">
+              <div class="column">
+                <div class="field">
+                  <label for = "email" class = "label">Correo electronico</label>
+                  <div class = "control" >
+                    <input type = "email"
+                        formControlName = "email"
+                        name = "email"
+                        placeholder = "Ej. xx@xx.com"
+                        class = "input"
+                        required/>
+                  </div>
+                  <app-message-validator
+                    [formGroup] = "formCreateCustomer"
+                    controlName = "email">
+                  </app-message-validator>
+                </div>
+
+              </div>
+              <div class="column">
+                <div class="field">
+                  <label for = "telephone" class = "label">Numero de telefono</label>
+                  <div class = "control" >
+                    <input type = "tel"
+                        formControlName = "telephone"
+                        name = "telephone"
+                        placeholder = "Ej. XXXXXXXXX"
+                        class = "input"
+                        required/>
+                  </div>
+                  <app-message-validator
+                    [formGroup] = "formCreateCustomer"
+                    controlName = "telephone">
+                  </app-message-validator>
+                </div>
+              </div>
+            </div>
+
+            <label for = "direction" class = "label">Dirección</label>
+            <div class="field has-addons">
+              <div class = "control is-expanded" >
+                <input type = "text"
+                    formControlName = "direction"
+                    name = "direction"
+                    placeholder = "Ej. calle XXX # XXX - XXX AP XX"
+                    class = "input is-uppercase"
+                    required/>
+              </div>
+              <div class="control">
+                <span class="select">
+                  <select formControlName ="city">
+                    <option>BELLO</option>
+                    <option>COPACABANA</option>
+                    <option>ENVIGADO</option>
+                    <option>ITAGUI</option>
+                    <option>GIRARDOTA</option>
+                    <option>LA ESTRELLA</option>
+                    <option>MEDELLIN</option>
+                    <option>SABANETA</option>
+                  </select>
+                </span>
+              </div>
+              <div class="control">
+                <input class="input is-static" formControlName="department" type="text" readonly>
+              </div>
+            </div>
+            <app-message-validator
+            [formGroup] = "formCreateCustomer"
+            controlName = "city">
+          </app-message-validator>
+          <app-message-validator
+            [formGroup] = "formCreateCustomer"
+            controlName = "direction">
+          </app-message-validator>
+
+            <div class="field">
+              <label for = "observations" class = "label">Observaciones</label>
+              <div class = "control" >
+                <textarea formControlName = "observations"
+                  name="observations"
+                  id="observations "
+                  class="textarea"
+                  placeholder="Ej. Datos complementarios del cliente"></textarea>
+              </div>
+              <app-message-validator
+                [formGroup] = "formCreateCustomer"
+                controlName = "observations">
+              </app-message-validator>
+            </div>
+          </div>
+        </div>
+        <div class="field buttons is-right">
+          <button
+            class="button is-link"
+            >
+            Nuevo
+          </button>
+          <button class="button is-success"
+            [disabled] ="formCreateCustomer.invalid"
+          >
+            Enviar
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

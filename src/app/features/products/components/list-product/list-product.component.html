@@ -1,0 +1,33 @@
+<div class="box is-fullwidth">
+  <div class="title is-4 has-text-centered has-background-primary has-text-white "  >Lista de productos</div>
+  <div class="table-container">
+    <table class="table is-bordered is-hoverable is-fullwidth">
+      <thead>
+        <tr>
+          <th class="has-background-primary-dark has-text-white has-text-centered">Nombre</th>
+          <th class="has-background-primary-dark has-text-white has-text-centered">Valor unitario</th>
+          <th class="has-background-primary-dark has-text-white has-text-centered">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor = "let product of products | async" >
+          <td>{{ product.name }} </td>
+          <td>{{ product.unitValue }} </td>
+          <td>
+            <div class="buttons">
+              <button class="button is-link"
+                [routerLink] = "['/productos/crear-productos', product.id]">
+                <span class="icon is-small">
+                  <i class="far fa-edit"></i>
+                </span>
+              </button>
+            </div>
+
+
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+</div>
