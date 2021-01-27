@@ -9,7 +9,7 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "lite": "lite-server",
-    "postinstall": "ng build --prod --configuration=production"
+    "postinstall": "ng build --configuration prod"
   },
   "private": true,
   "dependencies": {

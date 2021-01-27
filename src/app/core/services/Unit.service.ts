@@ -22,6 +22,7 @@ export class UnitService {
 
   list(state: string = ""): Observable<Unit[]>{
     const param = state ?  `/${state}`: "";
+    console.log(`${this.BASE_URL}/list${param}`);
     return this.http.get<ResponseBackend>(`${this.BASE_URL}/list${param}`)
     .pipe(
       map(unit => unit.result)
