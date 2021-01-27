@@ -1,7 +1,5 @@
 import { MediaMatcher } from '@angular/cdk/layout';
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
-import { NavigationEnd, NavigationStart, Route, Router } from '@angular/router';
-import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -16,9 +14,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   environmentIsProduction: string = "";
 
   constructor(changeDetectorRef: ChangeDetectorRef,
-              media: MediaMatcher,
-              private router: Router,
-              private serviceSpinner: NgxSpinnerService) {
+              media: MediaMatcher) {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addEventListener("change", this._mobileQueryListener);
