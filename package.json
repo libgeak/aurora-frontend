@@ -1,6 +1,6 @@
 {
   "name": "aurora-frontend",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "scripts": {
     "ng": "ng",
     "start": "node server.js",
@@ -9,7 +9,7 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "lite": "lite-server",
-    "postinstall": "ng build --configuration prod"
+    "postinstall": "ng build --prod"
   },
   "private": true,
   "dependencies": {
