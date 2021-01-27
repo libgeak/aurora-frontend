@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  urlBackend: 'http://localhost:8080/aurora'
+  urlBackend: 'http://localhost:8080/aurora',
+  title: 'Aurora-local'
 };
 
 /*
