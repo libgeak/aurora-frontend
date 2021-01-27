@@ -1,4 +1,5 @@
-const app = express();
+var express = require('express');
+let app = express();
 
 app.use(express.static(__dirname+'/dist/aurora-frontend'));
 app.get('/',function(req,res){
