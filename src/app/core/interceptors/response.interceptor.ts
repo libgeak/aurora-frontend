@@ -19,8 +19,6 @@ export class ResponseInterceptor implements HttpInterceptor {
       catchError(err =>{
         console.log(err.status);
         return throwError(err);
-
-
       }),
       finalize( () => {
         this.spinnerService.hide();

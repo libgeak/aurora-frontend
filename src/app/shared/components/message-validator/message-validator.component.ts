@@ -42,7 +42,7 @@ export class MessageValidatorComponent implements OnInit {
     if(!entryErrors){
       return "";
     }
-    console.log(entryErrors);
+    // console.log(entryErrors);
     for (var [key, value] of entryErrors) {
       const error = FORM_ERROR_MESSAGE.find(msg => msg.code === key);
       if(error){

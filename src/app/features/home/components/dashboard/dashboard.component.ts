@@ -1,6 +1,5 @@
 import { MediaMatcher } from '@angular/cdk/layout';
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
-import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-dashboard',
@@ -11,7 +10,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   mobileQuery: MediaQueryList;
   private _mobileQueryListener: () => void;
-  environmentIsProduction: string = "";
 
   constructor(changeDetectorRef: ChangeDetectorRef,
               media: MediaMatcher) {
@@ -22,8 +20,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.mobileQuery.removeEventListener("change", this._mobileQueryListener);
-    this.environmentIsProduction = environment.urlBackend;
-    console.warn('Environment is PRODUCTION: ' + environment.production);
   }
 
 
