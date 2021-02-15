@@ -1,5 +1,5 @@
 
-import Swal, {  SweetAlertOptions, SweetAlertResult } from 'sweetalert2';
+import Swal, {  SweetAlertIcon, SweetAlertOptions, SweetAlertResult } from 'sweetalert2';
 
 export class NotificationsUtil {
   private static Toast = Swal.mixin({
@@ -20,14 +20,19 @@ export class NotificationsUtil {
 
             });
  }
-
- /*static toastMessage(contentText: string, typeText: SweetAlertOptions = 'success'): void {
+/*
+ static toastMessage(contentText: string, typeText: SweetAlertOptions = 'success'): void {
   this.Toast.fire({ title: contentText,
     icon: typeText
   });
 }
 */
 
+static toastMessage(contentText: string, typeText: SweetAlertIcon = 'success'): void {
+  this.Toast.fire({ title: contentText,
+    icon: typeText
+  });
+}
   static showWarn(contentText: string, titleDialog: string = 'Alerta'): void {
       this.showMessage(   titleDialog,
                           contentText,
@@ -60,7 +65,7 @@ export class NotificationsUtil {
                           contentText,
                           'info');
   }
-/*
+
   static toastSuccess(contentText: string): void {
     this.toastMessage(contentText, 'success' );
   }
@@ -72,7 +77,7 @@ export class NotificationsUtil {
   static toastInfo(contentText: string): void {
     this.toastMessage(contentText, 'info');
   }
-*/
+
   static showConfirm(contentText: string = '¿Desea continuar con la operación?',
                     titleDialog: string = 'Confirmación',
                     showAsHtml?: boolean): Promise<SweetAlertResult>  {

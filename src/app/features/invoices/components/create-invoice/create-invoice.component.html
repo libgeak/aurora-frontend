@@ -1,0 +1,121 @@
+  <div id="tabs">
+    <ul class="steps is-narrow is-medium is-centered has-content-centered">
+
+      <li class="steps-segment is-active" data-tab="customer">
+        <span class="steps-marker">
+          <span class="icon">
+            <i class="fa fa-user"></i>
+          </span>
+        </span>
+        <div class="steps-content">
+          <p class="heading">Cliente</p>
+        </div>
+    </li>
+
+      <li class="steps-segment" data-tab="products">
+          <span class="steps-marker">
+            <span class="icon">
+              <i class="fa fa-shopping-cart"></i>
+            </span>
+          </span>
+          <div class="steps-content">
+            <p class="heading">Productos</p>
+          </div>
+      </li>
+
+
+
+      <li class="steps-segment" data-tab="confirm">
+        <span class="steps-marker is-hollow">
+          <span class="icon">
+            <i class="fa fa-check"></i>
+          </span>
+        </span>
+        <div class="steps-content">
+          <p class="heading">Confirmation</p>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+
+
+  <div class="tab-content mt-2" >
+    <div class="tab is-active" data-content="customer">
+      <app-list-customers
+        [showSelectedCustomer] = "true"
+        (customerEmitter) = "selectedCustomer($event)">
+      </app-list-customers>
+      <div class="buttons is-pulled-right mt-3">
+        <button
+          class="button is-link"
+          (click) = "nextTab('products')"
+        >
+          <span>Siguiente</span>
+          <span class="icon">
+            <i class="fas fa-angle-right"></i>
+          </span>
+        </button>
+      </div>
+
+    </div>
+
+    <div class="tab" data-content="products">
+      <div class="columns">
+        <div class="column is-half">
+          <app-list-product
+            [showSelected] = "true"
+            title = "Seleccione sus productos"
+            (productEmitter) = "selectedProduct($event)"
+            >
+          </app-list-product>
+        </div>
+        <div class="column is-half">
+          <app-invoice-detail [recentproducts] = "currentProducts"></app-invoice-detail>
+        </div>
+      </div>
+
+      <span class="buttons is-pulled-right mt-3">
+        <button
+          class="button is-link"
+          (click) = "nextTab('customer')"
+        >
+          <span class="icon">
+            <i class="fas fa-angle-left"></i>
+          </span>
+          <span>Anterior</span>
+        </button>
+        <button
+          class="button is-link"
+          (click) = "nextTab('confirm')"
+        >
+        <span>Siguiente</span>
+          <span class="icon">
+            <i class="fas fa-angle-right"></i>
+          </span>
+        </button>
+      </span>
+    </div>
+
+    <div class="tab" data-content="confirm">
+      Videos
+      <div class="buttons is-pulled-right mt-3">
+        <button
+          class="button is-link"
+          (click) = "nextTab('products')"
+        >
+        <span class="icon">
+          <i class="fas fa-angle-left"></i>
+        </span>
+        <span>Anterior</span>
+        </button>
+
+        <button
+          class="button is-primary"
+        >
+        Vender
+        </button>
+      </div>
+
+    </div>
+  </div>

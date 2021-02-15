@@ -11,7 +11,7 @@
             <div class="field">
               <label for = "identificationNumber" class = "label">Numero identificación</label>
               <div class = "control" >
-                <input type = "text"
+                <input type = "number"
                     formControlName = "identificationNumber"
                     name = "identificationNumber"
                     placeholder = "Ej. XXXXXXXXX"
@@ -61,7 +61,7 @@
                 <div class="field">
                   <label for = "telephone" class = "label">Numero de telefono</label>
                   <div class = "control" >
-                    <input type = "tel"
+                    <input type = "number"
                         formControlName = "telephone"
                         name = "telephone"
                         placeholder = "Ej. XXXXXXXXX"
@@ -89,14 +89,16 @@
               <div class="control">
                 <span class="select">
                   <select formControlName ="city">
-                    <option>BELLO</option>
-                    <option>COPACABANA</option>
-                    <option>ENVIGADO</option>
-                    <option>ITAGUI</option>
-                    <option>GIRARDOTA</option>
-                    <option>LA ESTRELLA</option>
-                    <option>MEDELLIN</option>
-                    <option>SABANETA</option>
+                    <option value="ARMENIA">ARMENIA</option>
+                    <option value="BELLO">BELLO</option>
+                    <option value="COPACABANA">COPACABANA</option>
+                    <option value="ENVIGADO">ENVIGADO</option>
+                    <option value="GIRARDOTA">GIRARDOTA</option>
+                    <option value="ITAGUI">ITAGUI</option>
+                    <option value="LA ESTRELLA">LA ESTRELLA</option>
+                    <option value="MEDELLIN">MEDELLIN</option>
+                    <option value="SABANETA">SABANETA</option>
+                    <option value="YARUMAL">YARUMAL</option>
                   </select>
                 </span>
               </div>
@@ -104,10 +106,6 @@
                 <input class="input is-static" formControlName="department" type="text" readonly>
               </div>
             </div>
-            <app-message-validator
-            [formGroup] = "formCreateCustomer"
-            controlName = "city">
-          </app-message-validator>
           <app-message-validator
             [formGroup] = "formCreateCustomer"
             controlName = "direction">
@@ -132,11 +130,12 @@
         <div class="field buttons is-right">
           <button
             class="button is-link"
-            >
+            [routerLink] ="['/clientes/crear-clientes']">
             Nuevo
           </button>
           <button class="button is-success"
             [disabled] ="formCreateCustomer.invalid"
+            (click) = "saveChanges()"
           >
             Enviar
           </button>

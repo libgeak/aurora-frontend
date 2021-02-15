@@ -1,7 +1,14 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { NotFoundComponent } from 'src/app/shared/components/not-found/not-found.component';
 
 const routes: Routes = [
+  {
+    path: '',
+    redirectTo: '/productos',
+    pathMatch: 'full'
+
+  },
   {
     path: 'productos',
     loadChildren:() => import('../products/products.module').then(m => m.ProductsModule)
@@ -14,6 +21,15 @@ const routes: Routes = [
     path: 'clientes',
     loadChildren:() => import('../customers/customers.module').then(m => m.CustomersModule)
   },
+  {
+    path: '404',
+    component: NotFoundComponent
+  },
+  {
+    path: '**',
+    redirectTo: '/404'
+   }
+
   /*{
     path: '**',
     redirectTo: 'productos',

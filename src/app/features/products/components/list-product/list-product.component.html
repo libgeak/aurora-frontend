@@ -1,5 +1,35 @@
 <div class="box is-fullwidth">
-  <div class="title is-4 has-text-centered has-background-primary has-text-white "  >Lista de productos</div>
+  <div class="title is-4 has-text-centered has-background-primary has-text-white "  >{{title}}</div>
+
+  <div class="field is-fullwidth has-addons">
+    <div class="control">
+      <input type="text"
+        placeholder="Digite nombre del producto"
+        title="Digite nombre del producto"
+        [(ngModel)] ="nameProduct"
+        (keyup.enter) = "searchByParams()"
+        class="input">
+    </div>
+
+      <button
+        class="control button is-link"
+        (click) = "searchByParams()">
+          <span class="icon">
+            <i class="fas fa-search"></i>
+          </span>
+          <span class="is-hidded-mobile">Buscar</span>
+      </button>
+
+      <button
+      class="control button is-link is-outlined"
+      (click) = "list()">
+      <span class="icon">
+        <i class="fas fa-list"></i>
+      </span>
+      <span>Mostrar todo</span>
+    </button>
+  </div>
+
   <div class="table-container">
     <table class="table is-bordered is-hoverable is-fullwidth">
       <thead>
@@ -21,9 +51,16 @@
                   <i class="far fa-edit"></i>
                 </span>
               </button>
+
+              <button
+                class="button is-link"
+                *ngIf="showSelected"
+                (click) = "selectedProduct(product)"
+              >
+                Seleccionar
+              </button>
+
             </div>
-
-
           </td>
         </tr>
       </tbody>

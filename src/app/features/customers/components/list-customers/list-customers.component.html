@@ -1,0 +1,76 @@
+<div class="box is-fullwidth">
+  <div class="title is-4 has-text-centered has-background-primary has-text-white">Lista de clientes</div>
+
+  <div class="field is-fullwidth has-addons">
+    <div class="control">
+      <input type="text"
+      placeholder="Digite nombre del cliente"
+      [(ngModel)] ="nameCustomer"
+      (keyup.enter) = "searchByParams()"
+      class="input">
+    </div>
+
+      <button
+        class="control button is-link"
+        (click) = "searchByParams()">
+        <span class="icon">
+          <i class="fas fa-search"></i>
+        </span>
+        <span>Buscar</span>
+      </button>
+
+      <button
+        class="control button is-link is-outlined"
+        (click) = "list()">
+        <span class="icon">
+          <i class="fas fa-list"></i>
+        </span>
+        <span>Mostrar todo</span>
+      </button>
+  </div>
+  <div class="table-container">
+    <!--table class="table is-bordered is-hoverable is-scrollable is-fullwidth"-->
+    <table class="table is-scrollable is-fullwidth">
+      <thead >
+        <tr>
+          <th class="has-background-primary-dark has-text-white has-text-centered">Nombre completo</th>
+          <th class="has-background-primary-dark has-text-white has-text-centered">Telefono</th>
+          <th class="has-background-primary-dark has-text-white has-text-centered">Dirección</th>
+          <th class="has-background-primary-dark has-text-white has-text-centered">Acciones</th>
+
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor = "let customer of customers | async" >
+
+          <td style="width: 35%;">{{ customer.fullname }} </td>
+          <td>{{ customer.telephone }} </td>
+          <td>{{ buildDirection(customer)}} </td>
+          <td style="width: 15%;">
+            <div class="buttons">
+              <button class="button is-link"
+                *ngIf="showSelectedCustomerButtom()"
+                (click) = "selectedCustomer(customer)"
+              >
+                Seleccionar
+              </button>
+              <button class="button is-link"
+                *ngIf="isCurrentCustomer(customer)"
+                (click) = "selectedCustomer()"
+              >
+                Seleccionado
+              </button>
+              <button class="button is-link"
+                [routerLink] = "['/clientes/crear-clientes', customer.id]">
+                <span class="icon is-small">
+                  <i class="far fa-edit"></i>
+                </span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
