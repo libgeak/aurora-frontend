@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChange
 import { Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { Product } from 'src/app/core/models/Product';
-import { ProductService } from 'src/app/core/services/Product.service';
+import { ProductService } from 'src/app/core/services/product.service';
 
 @Component({
   selector: 'app-list-product',

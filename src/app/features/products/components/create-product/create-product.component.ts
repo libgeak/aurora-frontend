@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { Product } from 'src/app/core/models/Product';
 import { Unit } from 'src/app/core/models/Unit';
-import { ProductService } from 'src/app/core/services/Product.service';
+import { ProductService } from 'src/app/core/services/product.service';
 import { UnitService } from 'src/app/core/services/Unit.service';
 import { NotificationsUtil } from 'src/app/core/utils/NotificationsUtil';
 
@@ -66,7 +66,7 @@ export class CreateProductComponent implements OnInit {
   getProduct(id: string){
     this.productService
       .get(id)
-      .subscribe(product => {
+      .subscribe((product: Product) => {
       this.product = product;
       this.product.idUnit = product?.unit?.id;
       this._buildForm();
