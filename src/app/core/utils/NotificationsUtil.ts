@@ -78,6 +78,10 @@ static toastMessage(contentText: string, typeText: SweetAlertIcon = 'success'): 
     this.toastMessage(contentText, 'info');
   }
 
+  static toastWarn(contentText: string): void {
+    this.toastMessage(contentText, 'warning');
+  }
+
   static showConfirm(contentText: string = '¿Desea continuar con la operación?',
                     titleDialog: string = 'Confirmación',
                     showAsHtml?: boolean): Promise<SweetAlertResult>  {

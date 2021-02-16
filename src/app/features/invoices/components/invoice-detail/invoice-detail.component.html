@@ -2,21 +2,82 @@
   <div class="title is-4 has-text-centered has-background-primary has-text-white "  >Detalle factura</div>
 
   <div class="table-container">
-    <table class="table is-bordered is-hoverable is-fullwidth">
-      <thead>
-        <tr>
-          <th class="has-background-primary-dark has-text-white has-text-centered">Nombre</th>
-          <th class="has-background-primary-dark has-text-white has-text-centered">Valor unitario</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let product of products">
-          <td>{{ product.name }} </td>
-          <td>{{ product.unitValue }} </td>
-        </tr>
-
-      </tbody>
-    </table>
-
+    <form novalidate [formGroup]="formInvoiceDetail" autocomplete="false" >
+      <table formArrayName="details" class="table is-bordered is-hoverable is-fullwidth">
+        <thead>
+          <tr>
+            <th class="has-background-primary-dark has-text-white has-text-centered">Nombre</th>
+            <th class="has-background-primary-dark has-text-white has-text-centered">Valor unitario</th>
+            <th class="has-background-primary-dark has-text-white has-text-centered">Cantidad</th>
+            <th class="has-background-primary-dark has-text-white has-text-centered">Subtotal</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let product of formArraydetails.controls; let i = index">
+            <ng-container [formArrayName] = "i">
+              <td>
+                <div class="field">
+                  <div class="control">
+                    <input type = "text"
+                        formControlName = "name"
+                        name = "name"
+                        class = "input is-static"
+                        readonly
+                        />
+                  </div>
+                </div>
+              </td>              <td>
+                <div class="field">
+                  <div class="control">
+                    <input type = "number"
+                        formControlName = "amount"
+                        name = "amount"
+                        placeholder = "Ej. XXXXXXXXX"
+                        class = "input is-static"
+                        readonly
+                        />
+                  </div>
+                </div>
+              </td>
+              <td>
+                <div class="field has-addons">
+                  <div class="control">
+                    <input type = "input"
+                      formControlName = "quality"
+                      name = "quality"
+                      placeholder = "Cantidad"
+                      title = "Digite cantidad del producto"
+                      class = "input"
+                      (blur) ="calculateSubtotal(product)"
+                    />
+                  </div>
+                  <div class="control">
+                    <input type = "text"
+                      formControlName = "codeUnit"
+                      name = "codeUnit"
+                      class = "input is-static"
+                      readonly
+                      />
+                  </div>
+                </div>
+              </td>
+              <td>
+                <div class="field">
+                  <div class="control">
+                    <input type = "number"
+                        formControlName = "subtotal"
+                        name = "subtotal"
+                        title = "Calculo subtotal"
+                        class = "input is-static"
+                        readonly
+                        />
+                  </div>
+                </div>
+              </td>
+            </ng-container>
+          </tr>
+        </tbody>
+      </table>
+    </form>
   </div>
 </div>

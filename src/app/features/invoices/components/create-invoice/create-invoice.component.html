@@ -1,4 +1,7 @@
   <div id="tabs">
+    <span *ngIf ="currentCustomer && currentCustomer.id !== undefined">
+      Nombre {{ currentCustomer.fullname }}
+    </span>
     <ul class="steps is-narrow is-medium is-centered has-content-centered">
 
       <li class="steps-segment is-active" data-tab="customer">
@@ -62,7 +65,7 @@
 
     <div class="tab" data-content="products">
       <div class="columns">
-        <div class="column is-half">
+        <div class="column is-one-third">
           <app-list-product
             [showSelected] = "true"
             title = "Seleccione sus productos"
@@ -70,8 +73,8 @@
             >
           </app-list-product>
         </div>
-        <div class="column is-half">
-          <app-invoice-detail [recentproducts] = "currentProducts"></app-invoice-detail>
+        <div class="column">
+          <app-invoice-detail #invoiceDetail ></app-invoice-detail>
         </div>
       </div>
 

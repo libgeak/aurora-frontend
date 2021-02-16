@@ -55,11 +55,13 @@
               >
                 Seleccionar
               </button>
-              <button class="button is-link"
+              <button class="button is-warning"
                 *ngIf="isCurrentCustomer(customer)"
                 (click) = "selectedCustomer()"
               >
-                Seleccionado
+                <span class="delete is-medium"></span>
+                <span>Deseleccionar</span>
+
               </button>
               <button class="button is-link"
                 [routerLink] = "['/clientes/crear-clientes', customer.id]">

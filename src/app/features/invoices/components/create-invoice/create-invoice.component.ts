@@ -1,8 +1,10 @@
+
 import { Component, OnInit, ViewChild } from '@angular/core';
 import * as $ from 'jquery';
 import { Customer } from 'src/app/core/models/Customer';
 import { Product } from 'src/app/core/models/Product';
 import { NotificationsUtil } from 'src/app/core/utils/NotificationsUtil';
+import { OperationUtil } from 'src/app/core/utils/OperationUtil';
 import { InvoiceDetailComponent } from '../invoice-detail/invoice-detail.component';
 
 @Component({
@@ -12,10 +14,11 @@ import { InvoiceDetailComponent } from '../invoice-detail/invoice-detail.compone
 })
 export class CreateInvoiceComponent implements OnInit {
 
-  currentProduct: Product = {} as Product;
+  currentCustomer: Customer = {} as Customer;
+
   currentProducts: Product[] = [];
 
-  @ViewChild(InvoiceDetailComponent)
+  @ViewChild("invoiceDetail")
   invoiceDetail?: InvoiceDetailComponent;
 
   constructor() {
@@ -38,22 +41,23 @@ export class CreateInvoiceComponent implements OnInit {
   }
 
   selectedCustomer(event: Customer){
-    if(event){
-      NotificationsUtil.toastInfo(`El cliente seleccionado fue: ${event.fullname}`);
+    const selectedCustomer = OperationUtil.isUndefined(event.id);
+    if(selectedCustomer && !OperationUtil.isUndefined(this.currentCustomer.id)){
+      NotificationsUtil.toastWarn(`El cliente "${this.currentCustomer.fullname.toUpperCase() }" fue removido.`);
+      this.currentCustomer = {} as Customer;
+    }
+
+    if(!selectedCustomer){
+      this.currentCustomer = event;
+      NotificationsUtil.toastInfo(`Haz seleccionado al cliente "${event.fullname.toUpperCase()}"`);
     }
   }
 
-  selectedProduct(product: Product){
-    if(product){
-      NotificationsUtil.toastInfo(`El producto seleccionado fue: ${product.name}`);
-    }
-    this.currentProduct = product;
+  selectedProduct(product: Product) {
 
-    this.currentProducts.push(product);
     if(this.invoiceDetail){
-      this.invoiceDetail.products = this.currentProducts;
+      this.invoiceDetail.addProductDetail(product);
     }
-
   }
 
   nextTab(nameTab: String){
@@ -63,7 +67,6 @@ export class CreateInvoiceComponent implements OnInit {
     $('.tab-content div').removeClass('is-active');
     $('div.tab[data-content="' + nameTab + '"]').addClass('is-active');
   }
-
 
 
 }

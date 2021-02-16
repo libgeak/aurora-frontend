@@ -5,6 +5,7 @@ import { InvoicesRoutingModule } from './invoices-routing.module';
 import { CustomersModule } from '../customers/customers.module';
 import { ProductsModule } from '../products/products.module';
 import { InvoiceDetailComponent } from './components/invoice-detail/invoice-detail.component';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 
 
@@ -14,6 +15,7 @@ import { InvoiceDetailComponent } from './components/invoice-detail/invoice-deta
     CommonModule,
     CustomersModule,
     ProductsModule,
+    SharedModule,
     InvoicesRoutingModule
   ]
 })
