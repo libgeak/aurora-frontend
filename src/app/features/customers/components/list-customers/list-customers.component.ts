@@ -20,6 +20,9 @@ export class ListCustomersComponent implements OnInit {
   @Input("showSelectedCustomer")
   showSelectedCustomer =  false;
 
+  @Input()
+  showEdit = true;
+
   @Output()
   customerEmitter: EventEmitter<Customer> = new EventEmitter();
 

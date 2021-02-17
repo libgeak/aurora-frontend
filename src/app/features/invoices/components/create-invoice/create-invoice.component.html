@@ -1,7 +1,4 @@
   <div id="tabs">
-    <span *ngIf ="currentCustomer && currentCustomer.id !== undefined">
-      Nombre {{ currentCustomer.fullname }}
-    </span>
     <ul class="steps is-narrow is-medium is-centered has-content-centered">
 
       <li class="steps-segment is-active" data-tab="customer">
@@ -28,7 +25,7 @@
 
 
 
-      <li class="steps-segment" data-tab="confirm">
+      <!--li class="steps-segment" data-tab="confirm">
         <span class="steps-marker is-hollow">
           <span class="icon">
             <i class="fa fa-check"></i>
@@ -37,16 +34,19 @@
         <div class="steps-content">
           <p class="heading">Confirmation</p>
         </div>
-      </li>
+      </li -->
     </ul>
   </div>
 
-
+  <div class="is-fullwidth" *ngIf="currentCustomer">
+    {{ currentCustomer.fullname }}
+  </div>
 
   <div class="tab-content mt-2" >
     <div class="tab is-active" data-content="customer">
       <app-list-customers
         [showSelectedCustomer] = "true"
+        [showEdit] = "false"
         (customerEmitter) = "selectedCustomer($event)">
       </app-list-customers>
       <div class="buttons is-pulled-right mt-3">
@@ -65,16 +65,17 @@
 
     <div class="tab" data-content="products">
       <div class="columns">
-        <div class="column is-one-third">
+        <div class="column is-two-fifths">
           <app-list-product
             [showSelected] = "true"
+            [showEdit] ="false"
             title = "Seleccione sus productos"
             (productEmitter) = "selectedProduct($event)"
             >
           </app-list-product>
         </div>
         <div class="column">
-          <app-invoice-detail #invoiceDetail ></app-invoice-detail>
+          <app-invoice-detail #invoiceDetail (outputDetail) ="processDetail($event)" ></app-invoice-detail>
         </div>
       </div>
 
@@ -88,15 +89,24 @@
           </span>
           <span>Anterior</span>
         </button>
-        <button
+        <button class="button is-primary"
+          [disabled] = "formGroupInvoice.invalid">
+          <span class="icon">
+            <i class="far fa-save"></i>
+          </span>
+          <span>Vender</span>
+        </button>
+
+        <!-- button
           class="button is-link"
           (click) = "nextTab('confirm')"
+          [disabled] = "formGroupInvoice.invalid"
         >
         <span>Siguiente</span>
           <span class="icon">
             <i class="fas fa-angle-right"></i>
           </span>
-        </button>
+        </button -->
       </span>
     </div>
 

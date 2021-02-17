@@ -3,16 +3,17 @@
 
   <div class="table-container">
     <form novalidate [formGroup]="formInvoiceDetail" autocomplete="false" >
-      <table formArrayName="details" class="table is-bordered is-hoverable is-fullwidth">
+      <table  class="table is-bordered is-hoverable is-fullwidth">
         <thead>
           <tr>
             <th class="has-background-primary-dark has-text-white has-text-centered">Nombre</th>
             <th class="has-background-primary-dark has-text-white has-text-centered">Valor unitario</th>
             <th class="has-background-primary-dark has-text-white has-text-centered">Cantidad</th>
             <th class="has-background-primary-dark has-text-white has-text-centered">Subtotal</th>
+            <th class="has-background-primary-dark has-text-white has-text-centered">Acciones</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody formArrayName="details">
           <tr *ngFor="let product of formArraydetails.controls; let i = index">
             <ng-container [formArrayName] = "i">
               <td>
@@ -26,7 +27,8 @@
                         />
                   </div>
                 </div>
-              </td>              <td>
+              </td>
+              <td>
                 <div class="field">
                   <div class="control">
                     <input type = "number"
@@ -51,7 +53,7 @@
                       (blur) ="calculateSubtotal(product)"
                     />
                   </div>
-                  <div class="control">
+                  <div class="control ml-1">
                     <input type = "text"
                       formControlName = "codeUnit"
                       name = "codeUnit"
@@ -74,9 +76,39 @@
                   </div>
                 </div>
               </td>
+
+              <td>
+                <div class="buttons" >
+                  <button
+                    class="button is-danger"
+                    title="Remover producto seleccionado"
+                    (click) = "removeItem(i)">
+                    <i class="fas fa-trash-alt"></i>
+                  </button>
+                </div>
+              </td>
             </ng-container>
           </tr>
         </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="4" class="has-background-primary-dark">
+              <label for="total" class="label has-text-white has-text-right">Total: </label>
+            </td>
+            <td>
+              <div class="field" >
+                <div class="control">
+                  <input type = "text"
+                      formControlName = "total"
+                      name = "total"
+                      class = "input is-static"
+                      readonly
+                      />
+                </div>
+              </div>
+            </td>
+          </tr>
+        </tfoot>
       </table>
     </form>
   </div>

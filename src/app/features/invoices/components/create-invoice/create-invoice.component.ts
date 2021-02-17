@@ -1,5 +1,6 @@
 
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { AbstractControl, FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import * as $ from 'jquery';
 import { Customer } from 'src/app/core/models/Customer';
 import { Product } from 'src/app/core/models/Product';
@@ -16,28 +17,20 @@ export class CreateInvoiceComponent implements OnInit {
 
   currentCustomer: Customer = {} as Customer;
 
-  currentProducts: Product[] = [];
+  formGroupInvoice: FormGroup = {} as FormGroup;
 
   @ViewChild("invoiceDetail")
   invoiceDetail?: InvoiceDetailComponent;
 
-  constructor() {
+  constructor(private formBuilder: FormBuilder) {
 
   }
 
   ngOnInit(): void {
-    /*
-    $('#tabs li').on('click', function(e) {
-     // var tab = $(this).data('tab');
-      //console.log(tab);
-
-      //$('#tabs li').removeClass('is-active');
-      //$(this).addClass('is-active');
-
-    //  $('#tab-content div').removeClass('is-active');
-    //  $('div[data-content="' + tab + '"]').addClass('is-active');
-    });
-    */
+    this.formGroupInvoice = this.formBuilder.group({
+      customer: [''],
+      invoiceDetail: this.formBuilder.array([], [Validators.required])
+    })
   }
 
   selectedCustomer(event: Customer){
@@ -50,6 +43,7 @@ export class CreateInvoiceComponent implements OnInit {
     if(!selectedCustomer){
       this.currentCustomer = event;
       NotificationsUtil.toastInfo(`Haz seleccionado al cliente "${event.fullname.toUpperCase()}"`);
+      this.formGroupInvoice.controls.customer.setValue(event);
     }
   }
 
@@ -66,6 +60,11 @@ export class CreateInvoiceComponent implements OnInit {
 
     $('.tab-content div').removeClass('is-active');
     $('div.tab[data-content="' + nameTab + '"]').addClass('is-active');
+  }
+
+  processDetail(event: FormArray){
+    this.formGroupInvoice.setControl('invoiceDetail', event)
+    console.log(this.formGroupInvoice.value);
   }
 
 

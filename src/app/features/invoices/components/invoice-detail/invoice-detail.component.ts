@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Product } from 'src/app/core/models/Product';
 import { NotificationsUtil } from 'src/app/core/utils/NotificationsUtil';
@@ -18,21 +18,35 @@ export class InvoiceDetailComponent implements OnInit  {
 
   formInvoiceDetail: FormGroup = {} as FormGroup;
 
+  @Output()
+  outputDetail: EventEmitter< FormArray> =  new EventEmitter() ;
+
   products: Product[] = [];
 
   constructor(private formBuilder: FormBuilder) {
     this.buildForm();
-    console.log(this.currentProduct)
-
   }
 
   ngOnInit(): void {
-
+    this.formArraydetails
+      .valueChanges
+      .subscribe(change => {
+        this.calculateTotal();
+        this.outputDetail.emit(this.formArraydetails);
+    })
   }
 
+  private calculateTotal(){
+    let total = 0;
+    this.formArraydetails.value.map((item: any) => {
+      total += item.subtotal;
+    });
+    this.formInvoiceDetail.controls.total.setValue(total);
+  }
   private buildForm() {
     this.formInvoiceDetail = this.formBuilder.group({
-      details: this.formBuilder.array([])
+      total: [''],
+      details: this.formBuilder.array([], [Validators.required])
     });
   }
 
@@ -45,9 +59,9 @@ export class InvoiceDetailComponent implements OnInit  {
       name: [product.name],
       amount: [product.unitValue],
       quality: ['', [Validators.required]],
-      subtotal: ['' ],
-      //codeUnit: [product?.unit?.code]
-      codeUnit: ['kg']
+      subtotal: ['', [Validators.required] ],
+      codeUnit: [product?.unit?.code, [Validators.required]]
+      //codeUnit: ['']
     })
   }
 
@@ -74,9 +88,14 @@ export class InvoiceDetailComponent implements OnInit  {
     const formProductControls = fromGroupProduct.controls
     const quality = formProductControls.quality;
     const amount = formProductControls.amount;
-
+    let subtotal = 0
     if(quality && quality.value){
-      formProductControls.subtotal.setValue(+quality.value * +amount.value);
+      subtotal = +quality.value * +amount.value
     }
+    formProductControls.subtotal.setValue(subtotal);
+  }
+
+  removeItem(i: number){
+    this.formArraydetails.removeAt(i);
   }
 }

@@ -15,6 +15,8 @@ export class ListProductComponent implements OnInit {
   @Input()
   showSelected: boolean = false;
   @Input()
+  showEdit: boolean = true;
+  @Input()
   title = 'Lista de productos';
 
   @Output()

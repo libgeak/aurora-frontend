@@ -64,6 +64,7 @@
 
               </button>
               <button class="button is-link"
+                *ngIf="showEdit"
                 [routerLink] = "['/clientes/crear-clientes', customer.id]">
                 <span class="icon is-small">
                   <i class="far fa-edit"></i>

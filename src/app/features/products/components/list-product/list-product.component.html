@@ -46,6 +46,7 @@
           <td>
             <div class="buttons">
               <button class="button is-link"
+                *ngIf="showEdit"
                 [routerLink] = "['/productos/crear-productos', product.id]">
                 <span class="icon is-small">
                   <i class="far fa-edit"></i>
