@@ -10,7 +10,7 @@
             <th class="has-background-primary-dark has-text-white has-text-centered">Valor unitario</th>
             <th class="has-background-primary-dark has-text-white has-text-centered">Cantidad</th>
             <th class="has-background-primary-dark has-text-white has-text-centered">Subtotal</th>
-            <th class="has-background-primary-dark has-text-white has-text-centered">Acciones</th>
+            <th class="has-background-primary-dark has-text-white has-text-centered" >Acciones</th>
           </tr>
         </thead>
         <tbody formArrayName="details">
@@ -34,9 +34,10 @@
                     <input type = "number"
                         formControlName = "amount"
                         name = "amount"
-                        placeholder = "Ej. XXXXXXXXX"
-                        class = "input is-static"
-                        readonly
+                        placeholder = "Ej. $XXXXXXX"
+                        class = "input"
+                        [class.is-static] = "isReadOnly"
+                        (keyup) ="calculateSubtotal(product)"
                         />
                   </div>
                 </div>
@@ -50,6 +51,7 @@
                       placeholder = "Cantidad"
                       title = "Digite cantidad del producto"
                       class = "input"
+                      [class.is-static] = "isReadOnly"
                       (blur) ="calculateSubtotal(product)"
                     />
                   </div>
@@ -77,11 +79,12 @@
                 </div>
               </td>
 
-              <td>
-                <div class="buttons" >
+              <td >
+                <div class="buttons" *ngIf="!isReadOnly">
                   <button
                     class="button is-danger"
                     title="Remover producto seleccionado"
+
                     (click) = "removeItem(i)">
                     <i class="fas fa-trash-alt"></i>
                   </button>

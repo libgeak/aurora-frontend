@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Customer } from 'src/app/core/models/Customer';
+import { CustomerUtil } from 'src/app/core/utils/CustomerUtil';
 
 @Component({
   selector: 'app-info-customer',
@@ -10,12 +11,13 @@ export class InfoCustomerComponent implements OnInit {
 
   @Input()
   customer: Customer = {} as Customer;
-
+  @Input()
   isSmallView = false;
 
-  constructor() { }
+  constructor(public customerUtil: CustomerUtil) { }
 
   ngOnInit(): void {
+
   }
 
 }

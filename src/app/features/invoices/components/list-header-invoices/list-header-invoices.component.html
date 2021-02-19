@@ -1,0 +1,34 @@
+<div class="box is-fullwidth">
+  <div class="title is-4 has-text-centered has-background-primary has-text-white "  >{{title}}</div>
+
+  <div class="table-container">
+    <table class="table is-bordered is-hoverable is-fullwidth">
+      <thead>
+        <tr>
+          <th class="has-background-primary-dark has-text-white has-text-centered">Fecha de venta</th>
+          <th class="has-background-primary-dark has-text-white has-text-centered">Valor total</th>
+          <th class="has-background-primary-dark has-text-white has-text-centered">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor = "let invoice of invoices | async" >
+          <td>{{ invoice.createdAt | date:'medium'   }} </td>
+          <td>{{ invoice.total }} </td>
+          <td>
+            <div class="buttons">
+              <button
+                class="button is-link"
+                *ngIf="showSelected"
+                (click) = "selectedInvoice(invoice)"
+              >
+                Seleccionar
+              </button>
+
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+</div>

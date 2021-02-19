@@ -5,6 +5,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { CustomerRoutingModule } from './customer-routing.module';
 import { ListCustomersComponent } from './components/list-customers/list-customers.component';
 import { InfoCustomerComponent } from './components/info-customer/info-customer.component';
+import { CustomerUtil } from 'src/app/core/utils/CustomerUtil';
 
 
 
@@ -15,6 +16,7 @@ import { InfoCustomerComponent } from './components/info-customer/info-customer.
     SharedModule,
     CustomerRoutingModule
   ],
-  exports:[ListCustomersComponent]
+  exports:[ListCustomersComponent, InfoCustomerComponent],
+  providers:[CustomerUtil]
 })
 export class CustomersModule { }

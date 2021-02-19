@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RequestInterceptor } from './interceptors/request.interceptor';
 import { ResponseInterceptor } from './interceptors/response.interceptor';
+import { TabUtil } from './utils/TabUtil';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { ResponseInterceptor } from './interceptors/response.interceptor';
     provide: HTTP_INTERCEPTORS,
     useClass: ResponseInterceptor,
     multi: true
-  }
+  },
+  TabUtil
 ]
 })
 export class CoreModule { }

@@ -2,8 +2,10 @@ import { isNull } from '@angular/compiler/src/output/output_ast';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
+import { Routes } from 'src/app/core/enums/RoutesEnum';
 import { Customer } from 'src/app/core/models/Customer';
 import { CustomerService } from 'src/app/core/services/customer.service';
+import { CustomerUtil } from 'src/app/core/utils/CustomerUtil';
 import { OperationUtil } from 'src/app/core/utils/OperationUtil';
 
 @Component({
@@ -27,7 +29,8 @@ export class ListCustomersComponent implements OnInit {
   customerEmitter: EventEmitter<Customer> = new EventEmitter();
 
   constructor(private customerService: CustomerService,
-    private router: Router ) {
+              private router: Router,
+              public customerUtil: CustomerUtil) {
      // this.list();
     }
 
@@ -35,11 +38,7 @@ export class ListCustomersComponent implements OnInit {
   }
 
   sendEdit(customer: Customer){
-    this.router.navigate(["clientes/crear-clientes", {id: customer.id }])
-  }
-
-  buildDirection(customer: Customer): String {
-    return `${customer.direction}, ${customer.city} - ${customer.department }`
+    this.router.navigate([Routes.CREATE_CUSTOMER, {id: customer.id }])
   }
 
   selectedCustomer(customer?: Customer){

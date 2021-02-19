@@ -1,13 +1,21 @@
-<section class ="is-fullwidth">
-  <ng-container *ngIf="isSmallView" >
+<section>
+
+  <div *ngIf="isSmallView" class="notification is-info is-light" title="Información del cliente seleccionado" >
     <div class="columns">
-      <div class="column">
-        Nombre:
-      </div>
-      <div class="column">
-        {{ customer.fullname }}
+
+      <div class="column is-one-third">
+        <label class="has-background-primary has-text-white">Nombre:</label>&nbsp;{{ customer.fullname }}
       </div>
 
+      <div class="column is-one-fifth">
+        <label class="has-background-primary has-text-white">Telefono:</label> &nbsp;{{ customer.telephone }}
+      </div>
+
+      <div class="column">
+        <label class="has-background-primary has-text-white">Dirección:</label>&nbsp;{{ customerUtil.buildDirection(customer) }}
+      </div>
     </div>
-  </ng-container>
+  </div>
+
 </section>
+

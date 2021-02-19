@@ -1,11 +1,15 @@
 
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import * as $ from 'jquery';
+import { Routes } from 'src/app/core/enums/RoutesEnum';
 import { Customer } from 'src/app/core/models/Customer';
 import { Product } from 'src/app/core/models/Product';
+import { InvoiceService } from 'src/app/core/services/invoice.service';
 import { NotificationsUtil } from 'src/app/core/utils/NotificationsUtil';
 import { OperationUtil } from 'src/app/core/utils/OperationUtil';
+import { TabUtil } from 'src/app/core/utils/TabUtil';
 import { InvoiceDetailComponent } from '../invoice-detail/invoice-detail.component';
 
 @Component({
@@ -22,14 +26,21 @@ export class CreateInvoiceComponent implements OnInit {
   @ViewChild("invoiceDetail")
   invoiceDetail?: InvoiceDetailComponent;
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder,
+              private invoiceService: InvoiceService,
+              private router: Router,
+              public tabUtil: TabUtil) {
 
   }
 
   ngOnInit(): void {
     this.formGroupInvoice = this.formBuilder.group({
-      customer: [''],
-      invoiceDetail: this.formBuilder.array([], [Validators.required])
+      invoice: this.formBuilder.group({
+        customer: [''],
+        total: ['', [Validators.required]]
+      }),
+      invoiceDetails: this.formBuilder.array([], [Validators.required]),
+
     })
   }
 
@@ -43,8 +54,12 @@ export class CreateInvoiceComponent implements OnInit {
     if(!selectedCustomer){
       this.currentCustomer = event;
       NotificationsUtil.toastInfo(`Haz seleccionado al cliente "${event.fullname.toUpperCase()}"`);
-      this.formGroupInvoice.controls.customer.setValue(event);
+      this.formInvoice.controls.customer.setValue(event);
     }
+  }
+
+  get formInvoice(): FormGroup {
+    return this.formGroupInvoice.controls.invoice as FormGroup;
   }
 
   selectedProduct(product: Product) {
@@ -54,17 +69,31 @@ export class CreateInvoiceComponent implements OnInit {
     }
   }
 
-  nextTab(nameTab: String){
-    $('#tabs li').removeClass('is-active');
-    $('#tabs li[data-tab="' + nameTab + '"]').addClass('is-active');
 
-    $('.tab-content div').removeClass('is-active');
-    $('div.tab[data-content="' + nameTab + '"]').addClass('is-active');
+  processDetail(event: FormGroup){
+    this.formInvoice.setControl('total', event.controls.total);
+    this.formGroupInvoice.setControl('invoiceDetails', event.controls.details);
   }
 
-  processDetail(event: FormArray){
-    this.formGroupInvoice.setControl('invoiceDetail', event)
-    console.log(this.formGroupInvoice.value);
+  saveInvoice(){
+    NotificationsUtil
+      .showConfirm()
+      .then(result => {
+        if(result.isConfirmed){
+          this.invoiceService
+            .saveInvoice(this.formGroupInvoice.value)
+              .subscribe(resultInvoice => {
+                NotificationsUtil
+                  .showComplete(resultInvoice)
+                  .then(result => {
+                    this.router.navigate([Routes.DEFAULT]);
+                });
+            }, err => {
+              NotificationsUtil.showException(err);
+            });
+
+        }
+      })
   }
 
 

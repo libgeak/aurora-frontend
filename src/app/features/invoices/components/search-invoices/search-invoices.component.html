@@ -1,0 +1,79 @@
+<div id="tabs">
+  <ul class="steps is-narrow is-medium is-centered has-content-centered">
+
+    <li class="steps-segment is-active" data-tab="customer">
+      <span class="steps-marker">
+        <span class="icon">
+          <i class="fa fa-user"></i>
+        </span>
+      </span>
+      <div class="steps-content">
+        <p class="heading">Cliente</p>
+      </div>
+    </li>
+
+    <li class="steps-segment" data-tab="products">
+        <span class="steps-marker">
+          <span class="icon">
+            <i class="fa fa-shopping-cart"></i>
+          </span>
+        </span>
+        <div class="steps-content">
+          <p class="heading">Facturas</p>
+        </div>
+    </li>
+  </ul>
+</div>
+
+<div class="is-half" *ngIf="currentCustomer && currentCustomer.id !== undefined">
+  <app-info-customer [customer] = "currentCustomer" [isSmallView] = "true"></app-info-customer>
+</div>
+
+<div class="tab-content mt-2" >
+  <div class="tab is-active" data-content="customer">
+    <app-list-customers
+      [showSelectedCustomer] = "true"
+      [showEdit] = "false"
+      (customerEmitter) = "selectedCustomer($event)">
+    </app-list-customers>
+    <div class="buttons is-pulled-right mt-3">
+      <button
+        class="button is-link"
+        (click) = "btnNextTab() "
+        [disabled] = "currentCustomer?.id === undefined"
+      >
+        <span>Siguiente</span>
+        <span class="icon">
+          <i class="fas fa-angle-right"></i>
+        </span>
+      </button>
+    </div>
+
+  </div>
+
+  <div class="tab" data-content="products">
+    <div class="columns">
+      <div class="column is-two-fifths">
+        <app-list-header-invoices #headerInvoice [showSelected] = "true" (currentInvoice) = "selectedInvoice($event)"></app-list-header-invoices>
+
+      </div>
+      <div class="column">
+        <app-invoice-detail #invoiceDetail ></app-invoice-detail>
+      </div>
+
+
+    </div>
+    <div class="buttons is-pulled-right mt-3">
+      <button
+        class="button is-link"
+        (click) = "tabUtil.nextTab('customer')"
+      >
+        <span class="icon">
+          <i class="fas fa-angle-left"></i>
+        </span>
+        <span>Anterior</span>
+      </button>
+    </div>
+  </div>
+
+</div>

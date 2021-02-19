@@ -104,7 +104,7 @@ static toastMessage(contentText: string, typeText: SweetAlertIcon = 'success'): 
   static showException(error: any): Promise<SweetAlertResult> {
     const titleDialog = !error.error.errorResponse ? 'Ha ocurrido un error en la aplicación' : error.error.errorResponse;
     const contentText = !error.error.messageResponse ? 'Consulte al Administrador del Sistema' : error.error.messageResponse;
-    console.log(error);
+
     if (titleDialog && titleDialog === 'INFO') {
       return this.showInfo(contentText);
     }

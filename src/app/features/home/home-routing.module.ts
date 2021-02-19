@@ -1,11 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { NotFoundComponent } from 'src/app/shared/components/not-found/not-found.component';
+import { HomeComponent } from './components/home/home.component';
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '/productos',
+    redirectTo: '/home',
     pathMatch: 'full'
 
   },
@@ -20,6 +21,9 @@ const routes: Routes = [
   {
     path: 'clientes',
     loadChildren:() => import('../customers/customers.module').then(m => m.CustomersModule)
+  },
+  {
+    path: 'home', component: HomeComponent
   },
   {
     path: '404',

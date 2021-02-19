@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
+import { Routes } from 'src/app/core/enums/RoutesEnum';
 import { Product } from 'src/app/core/models/Product';
 import { ProductService } from 'src/app/core/services/product.service';
 
@@ -34,7 +35,7 @@ export class ListProductComponent implements OnInit {
   }
 
   sendEdit(product: Product){
-    this.router.navigate(["product/crear-productos", {id: product.id }])
+    this.router.navigate([Routes.CREATE_PRODUCT, {id: product.id }])
   }
 
   searchByParams() {

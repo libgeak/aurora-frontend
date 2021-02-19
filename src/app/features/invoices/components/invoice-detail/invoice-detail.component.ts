@@ -1,6 +1,9 @@
 import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Invoice } from 'src/app/core/models/Invoice';
+import { InvoiceDetail } from 'src/app/core/models/InvoiceDetail';
 import { Product } from 'src/app/core/models/Product';
+import { InvoiceService } from 'src/app/core/services/invoice.service';
 import { NotificationsUtil } from 'src/app/core/utils/NotificationsUtil';
 
 @Component({
@@ -18,12 +21,16 @@ export class InvoiceDetailComponent implements OnInit  {
 
   formInvoiceDetail: FormGroup = {} as FormGroup;
 
+  isReadOnly = false;
+  footSpan = 4;
+
   @Output()
-  outputDetail: EventEmitter< FormArray> =  new EventEmitter() ;
+  outputDetail: EventEmitter< FormGroup > =  new EventEmitter() ;
 
   products: Product[] = [];
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder,
+              private invoiceService: InvoiceService) {
     this.buildForm();
   }
 
@@ -32,7 +39,7 @@ export class InvoiceDetailComponent implements OnInit  {
       .valueChanges
       .subscribe(change => {
         this.calculateTotal();
-        this.outputDetail.emit(this.formArraydetails);
+        this.outputDetail.emit(this.formInvoiceDetail);
     })
   }
 
@@ -43,7 +50,8 @@ export class InvoiceDetailComponent implements OnInit  {
     });
     this.formInvoiceDetail.controls.total.setValue(total);
   }
-  private buildForm() {
+
+  buildForm() {
     this.formInvoiceDetail = this.formBuilder.group({
       total: [''],
       details: this.formBuilder.array([], [Validators.required])
@@ -53,6 +61,7 @@ export class InvoiceDetailComponent implements OnInit  {
   get formArraydetails(): FormArray {
     return this.formInvoiceDetail.controls.details as FormArray;
   }
+
   private buildInvoiceDetailControl(product: Product): FormGroup{
     return this.formBuilder.group({
       product: [product],
@@ -61,7 +70,17 @@ export class InvoiceDetailComponent implements OnInit  {
       quality: ['', [Validators.required]],
       subtotal: ['', [Validators.required] ],
       codeUnit: [product?.unit?.code, [Validators.required]]
-      //codeUnit: ['']
+    })
+  }
+
+  private fillInvoiceDetailControl(detail: InvoiceDetail): FormGroup{
+    return this.formBuilder.group({
+      product: [detail.product],
+      name: [detail.product.name],
+      amount: [detail.amount],
+      quality: [detail.quality, [Validators.required]],
+      subtotal: [detail.subtotal, [Validators.required] ],
+      codeUnit: [detail.codeUnit, [Validators.required]]
     })
   }
 
@@ -97,5 +116,17 @@ export class InvoiceDetailComponent implements OnInit  {
 
   removeItem(i: number){
     this.formArraydetails.removeAt(i);
+  }
+
+  fillInvoiceDetail(invoice: Invoice){
+    this.isReadOnly = true;
+    this.buildForm();
+    this.invoiceService
+      .listInvoicesDetail(invoice.id)
+      .subscribe(invoiceDetails => {
+        invoiceDetails.forEach(invoiceItem => {
+          this.formArraydetails.push(this.fillInvoiceDetailControl(invoiceItem));
+        })
+    })
   }
 }

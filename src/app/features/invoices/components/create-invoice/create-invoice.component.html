@@ -38,8 +38,8 @@
     </ul>
   </div>
 
-  <div class="is-fullwidth" *ngIf="currentCustomer">
-    {{ currentCustomer.fullname }}
+  <div class="is-half" *ngIf="currentCustomer && currentCustomer.id !== undefined">
+    <app-info-customer [customer] = "currentCustomer" [isSmallView] = "true"></app-info-customer>
   </div>
 
   <div class="tab-content mt-2" >
@@ -52,7 +52,9 @@
       <div class="buttons is-pulled-right mt-3">
         <button
           class="button is-link"
-          (click) = "nextTab('products')"
+          (click) = "tabUtil.nextTab('products')"
+          [disabled] = "currentCustomer?.id === undefined"
+
         >
           <span>Siguiente</span>
           <span class="icon">
@@ -82,7 +84,7 @@
       <span class="buttons is-pulled-right mt-3">
         <button
           class="button is-link"
-          (click) = "nextTab('customer')"
+          (click) = "tabUtil.nextTab('customer')"
         >
           <span class="icon">
             <i class="fas fa-angle-left"></i>
@@ -90,45 +92,14 @@
           <span>Anterior</span>
         </button>
         <button class="button is-primary"
-          [disabled] = "formGroupInvoice.invalid">
+          [disabled] = "formGroupInvoice.invalid"
+          (click) = "saveInvoice()">
           <span class="icon">
             <i class="far fa-save"></i>
           </span>
           <span>Vender</span>
         </button>
-
-        <!-- button
-          class="button is-link"
-          (click) = "nextTab('confirm')"
-          [disabled] = "formGroupInvoice.invalid"
-        >
-        <span>Siguiente</span>
-          <span class="icon">
-            <i class="fas fa-angle-right"></i>
-          </span>
-        </button -->
       </span>
     </div>
 
-    <div class="tab" data-content="confirm">
-      Videos
-      <div class="buttons is-pulled-right mt-3">
-        <button
-          class="button is-link"
-          (click) = "nextTab('products')"
-        >
-        <span class="icon">
-          <i class="fas fa-angle-left"></i>
-        </span>
-        <span>Anterior</span>
-        </button>
-
-        <button
-          class="button is-primary"
-        >
-        Vender
-        </button>
-      </div>
-
-    </div>
   </div>
