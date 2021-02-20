@@ -7,13 +7,14 @@ import { SidenavComponent } from './components/sidenav/sidenav.component';
 import { HeaderComponent } from './components/header/header.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { HomeComponent } from './components/home/home.component';
+import { TotalSalesComponent } from './components/total-sales/total-sales.component';
 
 //externals
 
 
 
 @NgModule({
-  declarations: [DashboardComponent, SidenavComponent, HeaderComponent, HomeComponent],
+  declarations: [DashboardComponent, SidenavComponent, HeaderComponent, HomeComponent, TotalSalesComponent],
   imports: [
     CommonModule,
     HomeRoutingModule,

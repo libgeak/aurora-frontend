@@ -35,4 +35,11 @@ export class InvoiceService {
       map(invoiceDetail => invoiceDetail.result)
     );
   }
+
+  sumTotalInvoice(): Observable<number> {
+    return this.http.get<ResponseBackend>(`${this.BASE_URL}/sumTotalInvoice`)
+    .pipe(
+      map(invoiceDetail => invoiceDetail.result)
+    );
+  }
 }
